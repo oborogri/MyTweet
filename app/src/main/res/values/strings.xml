@@ -2,7 +2,7 @@
     <string name="app_name">MyTweet</string>
     <string name="app_login">Login</string>
     <string name="app_signup">Signup</string>
-    <string name="app_timeline">MyTweet Timeline</string>
+    <string name="app_timeline">Timeline</string>
     <string name="login">LOGIN</string>
     <string name="signup">SIGNUP</string>
     <string name="signupTitle">Sign up for MyTweet</string>
@@ -18,4 +18,5 @@
     <string name="loginSignin">Sign in</string>
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Password</string>
+    <string name="menuLogout">Logout</string>
 </resources>
