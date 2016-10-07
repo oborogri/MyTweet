@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.grigore.mytweet.Welcome">
+    tools:context="activity.Welcome">
 
     <TextView
         android:text="Welcome to MyTweet"
@@ -31,24 +31,24 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <Button
-        android:text="SIGN UP"
+        android:text="@string/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="158dp"
         android:id="@+id/signup_button"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:onClick="signupPressed"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
     <Button
-        android:text="LOGIN"
+        android:text="@string/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="46dp"
         android:id="@+id/login_button"
-        android:textAppearance="@style/TextAppearance.AppCompat" />
+        android:onClick="loginPressed"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
