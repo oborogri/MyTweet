@@ -1,23 +1,20 @@
-package activity;
+package app.mytweet;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
 import android.view.View;
-import android.widget.Toast;
-import app.mytweet.R;
 
-public class Welcome extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome);
+        setContentView(R.layout.activity_login);
     }
 
-    public void signupPressed (View view)
+    public void signinPressed (View view)
     {
-        startActivity (new Intent(this, Signup.class));
+        startActivity (new Intent(this, Timeline.class));
     }
 }
