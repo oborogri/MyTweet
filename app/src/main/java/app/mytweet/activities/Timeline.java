@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import app.mytweet.R;
+import app.mytweet.models.Tweet;
 
 public class Timeline extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class Timeline extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.timeline, menu);
+        menuInflater.inflate(R.menu.menu_timeline, menu);
         return true;
     }
 
@@ -30,9 +31,15 @@ public class Timeline extends AppCompatActivity {
     {
         switch (item.getItemId())
         {
-            case R.id.menu_logout : startActivity (new Intent(this, Welcome.class));
-                break;
+            case R.id.menu_item_new_tweet:
+                startActivity (new Intent(this, MyTweet.class));
+                return true;
+
+            case R.id.menu_logout:
+                startActivity (new Intent(this, Welcome.class));
+                return true;
+
+            default: return super.onOptionsItemSelected(item);
         }
-        return true;
     }
 }

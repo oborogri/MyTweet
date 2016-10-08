@@ -1,21 +1,23 @@
 package app.mytweet.activities;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
 
 import app.mytweet.R;
+import app.mytweet.models.Tweet;
 
+import static app.mytweet.R.id.tweet;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 
-public class Login extends AppCompatActivity {
+public class MyTweet extends AppCompatActivity implements TextWatcher {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_my_tweet);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
@@ -30,8 +32,21 @@ public class Login extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signinPressed (View view)
-    {
-        startActivity (new Intent(this, Timeline.class));
+    @Override
+    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable editable) {
+       //setText(editable.toString());
     }
 }
+
+
+

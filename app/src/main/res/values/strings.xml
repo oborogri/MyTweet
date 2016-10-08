@@ -19,4 +19,7 @@
     <string name="loginEmail">Email</string>
     <string name="loginPassword">Password</string>
     <string name="menuLogout">Logout</string>
+    <string name="new_tweet">New Tweet</string>
+    <string name="app_mytweet">My Tweet</string>
+    <string name="settings">Settings</string>
 </resources>
