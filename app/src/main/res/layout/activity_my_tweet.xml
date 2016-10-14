@@ -12,7 +12,7 @@
     tools:context="app.mytweet.activities.MyTweet">
 
     <Button
-        android:text="Tweet"
+        android:text="@string/tweet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,16 +23,27 @@
         style="@android:style/Widget.Button" />
 
     <TextView
-        android:text="140"
+        android:text="@string/tweet_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tweet"
         android:layout_alignParentStart="true"
-        android:id="@+id/characters_tweet"
+        android:id="@+id/chars_tweet"
         android:textAppearance="@style/TextAppearance.AppCompat" />
 
+    <TextView
+        android:id="@+id/tweet_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/email_tweet"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="58dp"
+        android:layout_marginLeft="159dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Button"
+        android:text="@string/tweet_date"/>
+
     <Button
-        android:text="Email Tweet via"
+        android:text="@string/email_via"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/email_tweet"
@@ -41,7 +52,7 @@
         style="@android:style/Widget.Button" />
 
     <Button
-        android:text="Select Contact"
+        android:text="@string/select_contact"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/contact_tweet"
@@ -49,22 +60,12 @@
         android:layout_centerHorizontal="true"
         style="@android:style/Widget.Button" />
 
-    <TextView
-        android:text="Date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/email_tweet"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="58dp"
-        android:id="@+id/tweet_date"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button" />
-
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:layout_below="@+id/tweet"
-        android:layout_toEndOf="@+id/characters_tweet"
+        android:layout_toEndOf="@+id/chars_tweet"
         android:id="@+id/text_tweet"
         android:layout_alignParentStart="true"
         android:hint="What's on your mind?"

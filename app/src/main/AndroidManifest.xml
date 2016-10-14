@@ -30,13 +30,19 @@
                 android:value="app.mytweet.activities.Welcome" />
         </activity>
         <activity
+            android:name=".activities.Timeline"
+            android:label="@string/app_timeline"></activity>
+        <activity
             android:name=".activities.MyTweet"
             android:label="@string/app_mytweet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.mytweet.activities.Timeline" />
         </activity>
-        <activity android:name=".activities.Timeline"></activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
