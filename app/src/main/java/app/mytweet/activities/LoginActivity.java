@@ -32,6 +32,6 @@ public class LoginActivity extends AppCompatActivity {
 
     public void signinPressed (View view)
     {
-        startActivity (new Intent(this, TimelineActivity.class));
+        startActivity (new Intent(this, TimelineListActivity.class));
     }
 }

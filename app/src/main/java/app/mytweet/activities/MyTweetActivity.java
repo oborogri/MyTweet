@@ -1,9 +1,5 @@
 package app.mytweet.activities;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import app.mytweet.helpers.ContactHelper;
 import app.mytweet.R;
 import app.mytweet.app.MyTweetApp;
 import app.mytweet.models.Portfolio;
@@ -11,31 +7,18 @@ import app.mytweet.models.Tweet;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.app.DatePickerDialog;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import static android.support.v7.appcompat.R.id.text;
 import static app.mytweet.R.id.chars_tweet;
-import static app.mytweet.R.id.tweet_date;
-import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
-import static app.mytweet.helpers.IntentHelper.selectContact;
 
 public class MyTweetActivity extends AppCompatActivity implements TextWatcher, OnClickListener {
 
@@ -63,7 +46,9 @@ public class MyTweetActivity extends AppCompatActivity implements TextWatcher, O
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        textTweet = (EditText) findViewById(R.id.text_tweet);
         tweet = new Tweet();
+
         Long date = tweet.date;
         dateView     = (TextView) findViewById(R.id.tweet_date);
         dateView.setText(dateString(date));
@@ -71,8 +56,10 @@ public class MyTweetActivity extends AppCompatActivity implements TextWatcher, O
         TextView chars = (TextView) findViewById(chars_tweet);
         chars.setText("140");
 
-        addListeners(this);
-        updateControls(tweet);
+        //Register a TextWatcher in the EditText textTweet object
+        textTweet.addTextChangedListener(this);
+
+        //updateControls(tweet);
 
         /*Long tweetId = (Long) this.getIntent().getSerializableExtra(EXTRA_TWEET_ID);
 
@@ -124,8 +111,8 @@ public class MyTweetActivity extends AppCompatActivity implements TextWatcher, O
 
     @Override
     public void afterTextChanged(Editable t) {
-        Log.i(this.getClass().getSimpleName(), "message " + t.toString());
-        tweet.text = t.toString();
+
+        tweet.setText(t.toString());
     }
 
     @Override
@@ -133,7 +120,7 @@ public class MyTweetActivity extends AppCompatActivity implements TextWatcher, O
         switch (v.getId()) {
             case R.id.send_tweet:
                 portfolio.addTweet(tweet);
-                startActivity (new Intent(this, TimelineActivity.class));
+                startActivity (new Intent(this, TimelineListActivity.class));
                 break;
         }
     }

@@ -5,68 +5,38 @@ package app.mytweet.models;
  */
 
 import android.util.Log;
-
 import java.util.ArrayList;
-
 import static app.mytweet.helpers.LogHelpers.info;
 
 public class Portfolio
 {
-    private PortfolioSerializer   serializer;
     public ArrayList<Tweet> tweets;
 
-    public Portfolio(PortfolioSerializer serializer)
-    {
-        this.serializer = serializer;
-        try
-        {
-            tweets = serializer.loadTweets();
-        }
-        catch (Exception e)
-        {
-            info(this, "Error loading Tweets: " + e.getMessage());
-            tweets = new ArrayList<Tweet>();
-        }
-    }
-
-    public boolean saveTweets()
-    {
-        try
-        {
-            serializer.saveTweets(tweets);
-            info(this, "Tweets saved to file");
-            return true;
-        }
-        catch (Exception e)
-        {
-            info(this, "Error saving tweets: " + e.getMessage());
-            return false;
-        }
+    public Portfolio() {
+        tweets = new ArrayList<Tweet>();
+        this.generateTestData();
     }
 
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
     }
 
-    public Tweet getTweet(Long id)
-    {
-        Log.i(this.getClass().getSimpleName(), "Long parameter id: "+ id);
+    public Tweet getTweet(Long id) {
+        Log.i(this.getClass().getSimpleName(), "Long parameter id: " + id);
 
-        for (Tweet res : tweets)
-        {
-            if(id.equals(res.id))
-            {
-                return res;
+        for (Tweet t : tweets) {
+            if (id.equals(t.id)) {
+                return t;
             }
         }
-        info(this, "failed to find Tweet. returning first element array to avoid crash");
         return null;
     }
 
-    public void deleteTweet(Tweet Tweet)
-    {
-        tweets.remove(Tweet);
-        saveTweets();
+    private void generateTestData() {
+        for (int i = 0; i < 10; i += 1) {
+            Tweet t = new Tweet();
+            t.text = "Tweet: " + i;
+            tweets.add(t);
+        }
     }
-
 }

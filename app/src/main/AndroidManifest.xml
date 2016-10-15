@@ -4,6 +4,7 @@
 
     <application
         android:allowBackup="true"
+        android:name=".app.MyTweetApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -30,19 +31,15 @@
                 android:value="app.mytweet.activities.WelcomeActivity" />
         </activity>
         <activity
-            android:name=".activities.TimelineActivity"
+            android:name=".activities.TimelineListActivity"
             android:label="@string/app_timeline"></activity>
         <activity
             android:name=".activities.MyTweetActivity"
             android:label="@string/app_mytweet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="app.mytweet.activities.TimelineActivity" />
+                android:value="app.mytweet.activities.TimelineListActivity" />
         </activity>
-        <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
