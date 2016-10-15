@@ -3,20 +3,19 @@ package app.mytweet.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
 import android.view.MenuItem;
 import android.view.View;
+import static app.mytweet.helpers.IntentHelper.navigateUp;
 
 import app.mytweet.R;
 
-import static app.mytweet.helpers.IntentHelper.navigateUp;
-
-public class Login extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setContentView(R.layout.activity_welcome);
     }
 
     @Override
@@ -30,8 +29,13 @@ public class Login extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signinPressed (View view)
+    public void signupPressed (View view)
     {
-        startActivity (new Intent(this, Timeline.class));
+        startActivity (new Intent(this, SignupActivity.class));
+    }
+
+    public void loginPressed (View view)
+    {
+        startActivity (new Intent(this, LoginActivity.class));
     }
 }

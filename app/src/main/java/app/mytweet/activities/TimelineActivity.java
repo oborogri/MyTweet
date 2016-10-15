@@ -8,9 +8,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import app.mytweet.R;
-import app.mytweet.models.Tweet;
 
-public class Timeline extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +31,11 @@ public class Timeline extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.menu_item_new_tweet:
-                startActivity (new Intent(this, MyTweet.class));
+                startActivity (new Intent(this, MyTweetActivity.class));
                 return true;
 
             case R.id.menu_logout:
-                startActivity (new Intent(this, Welcome.class));
+                startActivity (new Intent(this, WelcomeActivity.class));
                 return true;
 
             default: return super.onOptionsItemSelected(item);

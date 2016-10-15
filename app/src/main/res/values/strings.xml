@@ -20,8 +20,9 @@
     <string name="loginPassword">Password</string>
     <string name="menuLogout">Logout</string>
     <string name="new_tweet">New Tweet</string>
-    <string name="tweet">Tweet</string>
-    <string name="tweet_text"/>
+    <string name="send_tweet">Tweet</string>
+    <string name="text_tweet"/>
+    <string name="chars_tweet"/>
     <string name="email_via">Email Tweet via</string>
     <string name="select_contact">Select contact</string>
     <string name="app_mytweet">My Tweet</string>

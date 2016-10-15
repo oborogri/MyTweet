@@ -1,19 +1,23 @@
 package app.mytweet.models;
 
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import app.mytweet.R;
 import android.content.Context;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
+import static app.mytweet.R.id.text_tweet;
 
 
-public class Tweet {
+public class Tweet extends AppCompatActivity{
 
     public Long id;
     public Long date;
+    public int maxChars = 140;
 
     public String sender;
     public String text;
@@ -24,10 +28,8 @@ public class Tweet {
 
     public Tweet() {
 
-
         id = unsignedLong();
         date = new Date().getTime();
-        sender = "none presently";
     }
 
     public Tweet(JSONObject json) throws JSONException {
@@ -44,9 +46,16 @@ public class Tweet {
         return json;
     }
 
-
     public void setText(String text) {
         this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public String getDateString() {
+        return "Sent:" + dateString();
     }
 
     private String dateString() {
