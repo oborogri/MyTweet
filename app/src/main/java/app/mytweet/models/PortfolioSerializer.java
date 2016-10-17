@@ -31,11 +31,11 @@ public class PortfolioSerializer
         mFilename = f;
     }
 
-    public void saveTweets(ArrayList<Tweet> Tweets) throws JSONException, IOException
+    public void saveTweets(ArrayList<Tweet> tweets) throws JSONException, IOException
     {
         // build an array in JSON
         JSONArray array = new JSONArray();
-        for (Tweet c : Tweets)
+        for (Tweet c : tweets)
             array.put(c.toJSON());
 
         // write the file to disk

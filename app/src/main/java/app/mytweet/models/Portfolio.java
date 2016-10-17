@@ -11,6 +11,7 @@ import static app.mytweet.helpers.LogHelpers.info;
 public class Portfolio
 {
     public ArrayList<Tweet> tweets;
+    private PortfolioSerializer   serializer;
 
     public Portfolio() {
         tweets = new ArrayList<Tweet>();
@@ -30,6 +31,21 @@ public class Portfolio
             }
         }
         return null;
+    }
+
+    public boolean saveTweets()
+    {
+        try
+        {
+            serializer.saveTweets(tweets);
+            info(this, "Residences saved to file");
+            return true;
+        }
+        catch (Exception e)
+        {
+            info(this, "Error saving tweets: " + e.getMessage());
+            return false;
+        }
     }
 
     private void generateTestData() {

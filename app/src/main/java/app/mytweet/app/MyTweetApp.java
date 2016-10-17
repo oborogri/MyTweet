@@ -16,10 +16,11 @@ public class MyTweetApp extends Application
         super.onCreate();
         portfolio = new Portfolio();
 
-        //app=this;
+        app=this;
 
         info(this, "MyTweet app launched");
     }
-   // public static MyTweetApp getApp() { return app; }
+
+    public static MyTweetApp getApp() { return app; }
 
 }

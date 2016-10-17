@@ -63,6 +63,10 @@ public class Tweet extends AppCompatActivity{
         return android.text.format.DateFormat.format(dateFormat, date).toString();
     }
 
+    /**
+     * Generate a long greater than zero
+     * @return Unsigned Long value grater than zero
+     */
     private Long unsignedLong() {
         long rndVal = 0;
         do {
