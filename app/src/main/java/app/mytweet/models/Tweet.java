@@ -17,7 +17,7 @@ public class Tweet extends AppCompatActivity{
 
     public Long id;
     public Long date;
-    public int maxChars = 140;
+    public int max_count = 140;
 
     public String sender;
     public String text;

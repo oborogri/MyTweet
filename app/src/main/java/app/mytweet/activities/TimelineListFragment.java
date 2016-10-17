@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import app.mytweet.app.MyTweetApp;
 import app.mytweet.helpers.IntentHelper;
 import app.mytweet.R;
-import app.mytweet.app.MyTweetApp;
 import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
 
@@ -19,7 +18,6 @@ import android.widget.ArrayAdapter;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
-import android.widget.CheckBox;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -89,9 +87,6 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
                 startActivityForResult(in, 0);
-
-                //startActivity (new Intent(this, WelcomeActivity.class));
-                //return true;
 
             default:
                 return super.onOptionsItemSelected(item);

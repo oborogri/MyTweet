@@ -1,15 +1,9 @@
 package app.mytweet.activities;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import app.mytweet.helpers.ContactHelper;
 import app.mytweet.R;
 import app.mytweet.app.MyTweetApp;
 import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -19,16 +13,13 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.app.DatePickerDialog;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static app.mytweet.R.id.chars_count;
+import static app.mytweet.R.id.text_tweet;
 import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 import static app.mytweet.helpers.IntentHelper.selectContact;
@@ -42,6 +33,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
     private static  final int     REQUEST_CONTACT = 1;
 
     private EditText textTweet;
+    private TextView count;
     private Button sendTweet;
     private Button contactTweet;
     private Button emailTweet;
@@ -84,11 +76,12 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
     private void addListeners(View v)
     {
-        textTweet    = (EditText) v.findViewById(R.id.text_tweet);
+        textTweet    = (EditText) v.findViewById(text_tweet);
         sendTweet    = (Button) v.findViewById(R.id.send_tweet);
         contactTweet = (Button) v.findViewById(R.id.contact_tweet);
         emailTweet   = (Button) v.findViewById(R.id.send_tweet);
         dateView     = (TextView) v.findViewById(R.id.tweet_date);
+        count        = (TextView) v.findViewById(chars_count);
 
         textTweet   .addTextChangedListener(this);
         sendTweet   .setOnClickListener(this);
@@ -116,49 +109,20 @@ public class TweetFragment extends Fragment implements TextWatcher,
     }
 
     @Override
-    public void onPause()
-    {
-        super.onPause();
-        portfolio.saveTweets();
-    }
-
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
-        if (resultCode != Activity.RESULT_OK)
-        {
-            return;
-        }
-        else
-        if (requestCode == REQUEST_CONTACT)
-        {
-            String name = ContactHelper.getContact(getActivity(), data);
-            emailAddress = ContactHelper.getEmail(getActivity(), data);
-            senderButton.setText(name + " : " + emailAddress);
-            tweet.tenant = name;
-        }
-    }*/
-
-    @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after)
     { }
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count)
-    {}
+    public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
     @Override
     public void afterTextChanged(Editable c)
     {
         Log.i(this.getClass().getSimpleName(), "Message: " + c.toString());
         tweet.text = c.toString();
-    }
 
-   /* @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
-    {
-        tweet.rented = isChecked;
-    }*/
+        count.setText(String.valueOf(tweet.max_count-c.length()));
+    }
 
     @Override
     public void onClick(View v)
@@ -174,14 +138,10 @@ public class TweetFragment extends Fragment implements TextWatcher,
                         getString(R.string.email_tweet_subject), tweet.getDateString());
                 break;
 
+            case R.id.send_tweet :
+                portfolio.saveTweets();
+                navigateUp(getActivity());
+                break;
         }
     }
-
-   /* @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
-    {
-        Date date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
-        tweet.date = date.getTime();
-        dateButton.setText(tweet.getDateString());
-    }*/
 }
