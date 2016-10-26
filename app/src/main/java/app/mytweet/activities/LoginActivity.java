@@ -42,10 +42,14 @@ public class LoginActivity extends AppCompatActivity {
 
         if (app.validUser(email.getText().toString(), password.getText().toString()))
         {
+            Toast toast = Toast.makeText(this, "Signing in to MyTweet", Toast.LENGTH_SHORT);
+            toast.show();
+
             startActivity (new Intent(this, TimelineListActivity.class));
         }
         else
         {
+            startActivity (new Intent(this, WelcomeActivity.class));
             Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);
             toast.show();
         }

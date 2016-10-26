@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 
 import app.mytweet.R;
@@ -31,11 +33,18 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void signupPressed (View view)
     {
+        Toast toast = Toast.makeText(this, "Signup pressed", Toast.LENGTH_SHORT);
+        toast.show();
+
         startActivity (new Intent(this, SignupActivity.class));
     }
 
     public void loginPressed (View view)
     {
+
+        Toast toast = Toast.makeText(this, "Login pressed", Toast.LENGTH_SHORT);
+        toast.show();
+
         startActivity (new Intent(this, LoginActivity.class));
     }
 }

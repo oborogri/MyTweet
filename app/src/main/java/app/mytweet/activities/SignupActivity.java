@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import app.mytweet.R;
 import app.mytweet.app.MyTweetApp;
@@ -36,14 +40,34 @@ public class SignupActivity extends AppCompatActivity {
     public void signupPressed(View view) {
         TextView firstName = (TextView) findViewById(R.id.firstName);
         TextView lastName = (TextView) findViewById(R.id.lastName);
-        TextView email = (TextView) findViewById(R.id.Email);
+        TextView tvemail = (TextView) findViewById(R.id.Email);
         TextView password = (TextView) findViewById(R.id.Password);
 
-        User user = new User(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(), password.getText().toString());
+            if(isValidEmaillId(tvemail.getText().toString().trim())) {
 
-        MyTweetApp app = (MyTweetApp) getApplication();
-        app.newUser(user);
+                User user = new User(firstName.getText().toString(), lastName.getText().toString(), tvemail.getText().toString(), password.getText().toString());
 
-        startActivity (new Intent(this, LoginActivity.class));
-    }
+                MyTweetApp app = (MyTweetApp) getApplication();
+                app.newUser(user);
+
+                Toast toast = Toast.makeText(this, "Registering new user", Toast.LENGTH_SHORT);
+                toast.show();
+
+                startActivity(new Intent(this, LoginActivity.class));
+
+            } else{
+
+           Toast.makeText(getApplicationContext(), "InValid Email Address.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        private boolean isValidEmaillId(String email){
+
+            return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
+                    + "((([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\."
+                    + "([0-1]?[0-9]{1,2}|25[0-5]|2[0-4][0-9])\\.([0-1]?"
+                    + "[0-9]{1,2}|25[0-5]|2[0-4][0-9])){1}|"
+                    + "([a-zA-Z]+[\\w-]+\\.)+[a-zA-Z]{2,4})$").matcher(email).matches();
+        }
 }
