@@ -37,6 +37,6 @@
     <string name="set_refresh_interval">Refresh</string>
     <string name="set_refresh_interval_summary">Frequency of cloud updates (minutes)</string>
     <string name="title_activity_settings">SettingsActivity</string>
-
+    <string name="delete_tweet">Delete Tweet</string>
     <string name="email_tweet_subject">Tweet subject</string>
 </resources>

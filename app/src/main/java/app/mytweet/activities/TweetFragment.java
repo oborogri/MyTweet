@@ -18,8 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import static app.mytweet.R.id.chars_count;
 import static app.mytweet.R.id.text_tweet;
+import static app.mytweet.R.string.tweet_date;
 import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 import static app.mytweet.helpers.IntentHelper.selectContact;
@@ -57,6 +60,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
         app = MyTweetApp.getApp();
         portfolio = app.portfolio;
         tweet = portfolio.getTweet(resId);
+
     }
 
     @Override
@@ -87,6 +91,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
         sendTweet   .setOnClickListener(this);
         contactTweet.setOnClickListener(this);
         emailTweet  .setOnClickListener(this);
+        dateView    .setText(tweet.getDateString());
 
     }
 

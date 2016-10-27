@@ -55,7 +55,7 @@ public class Tweet extends AppCompatActivity{
     }
 
     public String getDateString() {
-        return "Sent:" + dateString();
+        return dateString();
     }
 
     private String dateString() {

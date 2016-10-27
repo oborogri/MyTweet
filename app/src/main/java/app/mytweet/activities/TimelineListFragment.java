@@ -24,13 +24,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
+import android.view.ActionMode;
 
-public class TimelineListFragment extends ListFragment implements OnItemClickListener
+public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
 {
     private ArrayList<Tweet> tweets;
     private Portfolio portfolio;
     private MyTweetAdapter adapter;
+    private ListView listView;
     MyTweetApp app;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,9 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, parent, savedInstanceState);
+        listView = (ListView) v.findViewById(android.R.id.list);
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(this);
         return v;
     }
 
@@ -126,4 +133,57 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             return convertView;
         }
     }
+    /* ************ MultiChoiceModeListener methods (begin) *********** */
+    @Override
+    public boolean onCreateActionMode(ActionMode actionMode, Menu menu)
+    {
+        MenuInflater inflater = actionMode.getMenuInflater();
+        inflater.inflate(R.menu.tweet_list_context, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareActionMode(ActionMode actionMode, Menu menu)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem)
+    {
+        switch (menuItem.getItemId())
+        {
+            case R.id.menu_item_delete_tweet:
+                deleteTweet(actionMode);
+                return true;
+            default:
+                return false;
+        }
+
+    }
+
+    private void deleteTweet(ActionMode actionMode)
+    {
+        for (int i = adapter.getCount() - 1; i >= 0; i--)
+        {
+            if (listView.isItemChecked(i))
+            {
+                portfolio.deleteTweet(adapter.getItem(i));
+            }
+        }
+        actionMode.finish();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyActionMode(ActionMode actionMode)
+    {
+    }
+
+    @Override
+    public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked)
+    {
+    }
+
+  /* ************ MultiChoiceModeListener methods (end) *********** */
 }

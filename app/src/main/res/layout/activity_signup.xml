@@ -88,6 +88,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="28dp"
         android:onClick="signupPressed"
-        android:text="@string/signupRegister" />
+        android:text="@string/signupRegister"
+        style="@android:style/Widget.Button"/>
 
     </RelativeLayout>

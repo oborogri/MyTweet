@@ -48,6 +48,12 @@ public class Portfolio
         }
     }
 
+    public void deleteTweet(Tweet tweet)
+    {
+        tweets.remove(tweet);
+        saveTweets();
+    }
+
     private void generateTestData() {
         for (int i = 0; i < 10; i += 1) {
             Tweet t = new Tweet();

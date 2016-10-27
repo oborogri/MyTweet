@@ -62,6 +62,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:onClick="signinPressed"
-        android:text="@string/loginSignin" />
+        android:text="@string/loginSignin"
+        style="@android:style/Widget.Button"/>
 
 </RelativeLayout>
