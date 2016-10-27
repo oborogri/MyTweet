@@ -34,7 +34,7 @@
             android:name=".activities.TimelineListActivity"
             android:label="@string/app_timeline"></activity>
         <activity
-            android:name=".activities.MyTweetActivity"
+            android:name=".activities.MyTweetPagerActivity"
             android:label="@string/app_mytweet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

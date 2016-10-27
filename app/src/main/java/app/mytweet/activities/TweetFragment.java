@@ -18,11 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Date;
-
 import static app.mytweet.R.id.chars_count;
 import static app.mytweet.R.id.text_tweet;
-import static app.mytweet.R.string.tweet_date;
 import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 import static app.mytweet.helpers.IntentHelper.selectContact;
@@ -55,11 +52,11 @@ public class TweetFragment extends Fragment implements TextWatcher,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Long resId = (Long) getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
+        Long tweetId = (Long)getArguments().getSerializable(EXTRA_TWEET_ID);
 
         app = MyTweetApp.getApp();
         portfolio = app.portfolio;
-        tweet = portfolio.getTweet(resId);
+        tweet = portfolio.getTweet(tweetId);
 
     }
 
@@ -69,8 +66,8 @@ public class TweetFragment extends Fragment implements TextWatcher,
         super.onCreateView(inflater,  parent, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_mytweet, parent, false);
 
-        MyTweetActivity residenceActivity = (MyTweetActivity)getActivity();
-        residenceActivity.actionBar.setDisplayHomeAsUpEnabled(true);
+        MyTweetPagerActivity mytweetActivity = (MyTweetPagerActivity)getActivity();
+        mytweetActivity.actionBar.setDisplayHomeAsUpEnabled(true);
 
         addListeners(v);
         updateControls(tweet);

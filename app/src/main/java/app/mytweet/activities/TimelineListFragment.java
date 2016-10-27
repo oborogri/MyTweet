@@ -62,7 +62,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Tweet t = ((MyTweetAdapter) getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(), MyTweetActivity.class);
+        Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
         i.putExtra(TweetFragment.EXTRA_TWEET_ID, t.id);
         startActivityForResult(i, 0);
     }
@@ -86,7 +86,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 Tweet tweet = new Tweet();
                 portfolio.addTweet(tweet);
 
-                Intent i = new Intent(getActivity(), MyTweetActivity.class);
+                Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
                 startActivityForResult(i, 0);
                 return true;
@@ -103,7 +103,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Tweet t = adapter.getItem(position);
-        IntentHelper.startActivityWithData(getActivity(), MyTweetActivity.class, "TWEET_ID", t.id);
+        IntentHelper.startActivityWithData(getActivity(), MyTweetPagerActivity.class, "TWEET_ID", t.id);
     }
 
     class MyTweetAdapter extends ArrayAdapter<Tweet>
