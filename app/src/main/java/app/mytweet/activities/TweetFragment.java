@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static app.mytweet.R.id.chars_count;
 import static app.mytweet.R.id.text_tweet;
@@ -102,7 +103,8 @@ public class TweetFragment extends Fragment implements TextWatcher,
     {
         switch (item.getItemId())
         {
-            case android.R.id.home: navigateUp(getActivity());
+            case android.R.id.home:
+                navigateUp(getActivity());
                 return true;
 
             default:
@@ -118,12 +120,10 @@ public class TweetFragment extends Fragment implements TextWatcher,
     public void onTextChanged(CharSequence s, int start, int before, int count) {}
 
     @Override
-    public void afterTextChanged(Editable c)
-    {
+    public void afterTextChanged(Editable c) {
         Log.i(this.getClass().getSimpleName(), "Message: " + c.toString());
         tweet.text = c.toString();
-
-        count.setText(String.valueOf(tweet.max_count-c.length()));
+        count.setText(String.valueOf(tweet.max_count - c.length()));
     }
 
     @Override
@@ -141,7 +141,15 @@ public class TweetFragment extends Fragment implements TextWatcher,
                 break;
 
             case R.id.send_tweet :
+                if(tweet.text.matches("")) {
+                    portfolio.deleteTweet(tweet);
+                    portfolio.saveTweets();
+                    Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 portfolio.saveTweets();
+                Toast toast = Toast.makeText(getActivity(), "Message sent!", Toast.LENGTH_SHORT);
+                toast.show();
                 navigateUp(getActivity());
                 break;
         }

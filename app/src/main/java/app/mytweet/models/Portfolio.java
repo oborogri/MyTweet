@@ -54,6 +54,11 @@ public class Portfolio
         saveTweets();
     }
 
+    public void deleteTweetsAll(ArrayList<Tweet> tweets)
+    {
+        tweets.clear();
+    }
+
     private void generateTestData() {
         for (int i = 0; i < 10; i += 1) {
             Tweet t = new Tweet();

@@ -91,6 +91,14 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 startActivityForResult(i, 0);
                 return true;
 
+            case R.id.menu_clear:
+                tweets = portfolio.tweets;
+                portfolio.deleteTweetsAll(tweets);
+                portfolio.saveTweets();
+                Intent it = new Intent(getActivity(), TimelineListActivity.class);
+                startActivity(it);
+                return true;
+
             case R.id.menu_logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
                 startActivityForResult(in, 0);
