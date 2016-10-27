@@ -26,6 +26,7 @@ import android.support.v4.app.ListFragment;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.view.ActionMode;
+import android.widget.Toast;
 
 public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
 {
@@ -85,7 +86,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
                 portfolio.addTweet(tweet);
-
+                portfolio.saveTweets();
                 Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
                 startActivityForResult(i, 0);
@@ -93,8 +94,12 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
 
             case R.id.menu_clear:
                 tweets = portfolio.tweets;
+                if(tweets.size() == 0 ) {
+                    Toast toast = Toast.makeText(getActivity(), "There are no tweets to delete!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return true;
+                }
                 portfolio.deleteTweetsAll(tweets);
-                portfolio.saveTweets();
                 Intent it = new Intent(getActivity(), TimelineListActivity.class);
                 startActivity(it);
                 return true;
@@ -194,4 +199,5 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     }
 
   /* ************ MultiChoiceModeListener methods (end) *********** */
+
 }

@@ -29,6 +29,10 @@
     <string name="settings">Settings</string>
     <string name="clear">Delete all</string>
     <string name="tweet_date"/>
+    <string name="dialog_title">Warning!</string>
+    <string name="dialog_text">Delete all tweets?</string>
+    <string name="dialog_ok">Delete</string>
+    <string name="dialog_cancel">Cancel</string>
     <string name="username_summary">Please enter your user name</string>
     <string name="username">Username</string>
     <string name="password_summary">You may set your password here</string>
