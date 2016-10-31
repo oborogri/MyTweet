@@ -2,10 +2,19 @@ package app.mytweet.activities;
 
 import app.mytweet.R;
 import app.mytweet.app.MyTweetApp;
+import app.mytweet.helpers.ContactHelper;
 import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
+
+import android.Manifest;
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -78,18 +87,20 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
     private void addListeners(View v)
     {
-        textTweet    = (EditText) v.findViewById(text_tweet);
+        textTweet    = (EditText) v.findViewById(R.id.text_tweet);
         sendTweet    = (Button) v.findViewById(R.id.send_tweet);
         contactTweet = (Button) v.findViewById(R.id.contact_tweet);
-        emailTweet   = (Button) v.findViewById(R.id.send_tweet);
+        emailTweet   = (Button) v.findViewById(R.id.email_tweet);
         dateView     = (TextView) v.findViewById(R.id.tweet_date);
-        count        = (TextView) v.findViewById(chars_count);
+        count        = (TextView) v.findViewById(R.id.chars_count);
 
         textTweet   .addTextChangedListener(this);
         sendTweet   .setOnClickListener(this);
         contactTweet.setOnClickListener(this);
         emailTweet  .setOnClickListener(this);
-        dateView    .setText(tweet.getDateString());
+
+        dateView .setText(tweet.getDateString());
+
 
     }
 
@@ -129,29 +140,98 @@ public class TweetFragment extends Fragment implements TextWatcher,
     @Override
     public void onClick(View v)
     {
-        switch (v.getId())
-        {
-            case R.id.contact_tweet :
+        switch (v.getId()) {
+            case R.id.contact_tweet:
                 selectContact(getActivity(), REQUEST_CONTACT);
                 break;
 
-            case R.id.email_tweet :
+            case R.id.email_tweet:
                 sendEmail(getActivity(), emailAddress,
-                        getString(R.string.email_tweet_subject), tweet.getDateString());
+                        getString(R.string.email_tweet_subject), tweet.getText());
                 break;
 
-            case R.id.send_tweet :
-                if(tweet.text.matches("")) {
+            case R.id.send_tweet:
+                if (tweet.text.matches("")) {
                     portfolio.deleteTweet(tweet);
-                    portfolio.saveTweets();
                     Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
                     toast.show();
+                    navigateUp(getActivity());
+                } else if (portfolio.containsTweet(tweet)) {
+                    Toast toast = Toast.makeText(getActivity(), "Message already on your Timeline!", Toast.LENGTH_SHORT);
+                    toast.show();
+                } else {
+                    portfolio.addTweet(tweet);
+                    portfolio.saveTweets();
+                    Toast toast = Toast.makeText(getActivity(), "Message sent!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    navigateUp(getActivity());
+                    break;
                 }
-                portfolio.saveTweets();
-                Toast toast = Toast.makeText(getActivity(), "Message sent!", Toast.LENGTH_SHORT);
-                toast.show();
-                navigateUp(getActivity());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case REQUEST_CONTACT:
+                checkContactsReadPermission();
+                String name = ContactHelper.getContact(getActivity(), data);
+                emailAddress = ContactHelper.getEmail(getActivity(), data);
+                contactTweet.setText(name + " : " + emailAddress);
+                tweet.receiver = name;
                 break;
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case REQUEST_CONTACT: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted. Do the
+                    // contacts-related task you need to do.
+                }
+                else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
+    }
+
+    public void checkContactsReadPermission() {
+        // Here, this is the current activity
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.READ_CONTACTS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we checkContactsReadPermissione show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.READ_CONTACTS)) {
+                // Show an expanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            }
+            else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.READ_CONTACTS},
+                        REQUEST_CONTACT);
+                // REQUEST_CONTACT is an app-defined int constant.
+                // The callback method, onRequestPermissionsResult, gets the result of the request.
+            }
+        }
+    }
+
 }

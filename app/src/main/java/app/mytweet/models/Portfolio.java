@@ -22,6 +22,11 @@ public class Portfolio
         tweets.add(tweet);
     }
 
+    public Boolean containsTweet(Tweet tweet) {
+         return tweets.contains(tweet);
+}
+
+
     public Tweet getTweet(Long id) {
         Log.i(this.getClass().getSimpleName(), "Long parameter id: " + id);
 
@@ -38,7 +43,7 @@ public class Portfolio
         try
         {
             serializer.saveTweets(tweets);
-            info(this, "Residences saved to file");
+            info(this, "Tweets saved to file");
             return true;
         }
         catch (Exception e)

@@ -7,7 +7,10 @@ import app.mytweet.helpers.IntentHelper;
 import app.mytweet.R;
 import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
+import app.mytweet.settings.SettingsActivity;
 
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,6 +30,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.view.ActionMode;
 import android.widget.Toast;
+
+import static app.mytweet.R.id.text_tweet;
 
 public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
 {
@@ -62,6 +67,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
+
         Tweet t = ((MyTweetAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
         i.putExtra(TweetFragment.EXTRA_TWEET_ID, t.id);
@@ -108,10 +114,16 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
                 startActivityForResult(in, 0);
 
+            case R.id.action_settings:
+                startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -146,6 +158,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             return convertView;
         }
     }
+
     /* ************ MultiChoiceModeListener methods (begin) *********** */
     @Override
     public boolean onCreateActionMode(ActionMode actionMode, Menu menu)

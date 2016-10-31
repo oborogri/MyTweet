@@ -10,39 +10,37 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-import static app.mytweet.R.id.text_tweet;
-
-
 public class Tweet extends AppCompatActivity{
 
     public Long id;
     public Long date;
     public int max_count = 140;
 
-    public String sender;
+    public String receiver;
     public String text;
 
     public static final String JSON_ID = "id";
     public static final String JSON_DATE = "date";
-    public static final String JSON_SENDER = "sender";
+    public static final String JSON_RECEIVER = "receiver";
 
     public Tweet() {
 
         id = unsignedLong();
         date = new Date().getTime();
+        receiver = "";
     }
 
     public Tweet(JSONObject json) throws JSONException {
         id = json.getLong(JSON_ID);
         date = json.getLong(JSON_DATE);
-        sender = json.getString(JSON_SENDER);
+        receiver = json.getString(JSON_RECEIVER);
     }
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
         json.put(JSON_ID, Long.toString(id));
         json.put(JSON_DATE, date);
-        json.put(JSON_SENDER, sender);
+        json.put(JSON_RECEIVER, receiver);
         return json;
     }
 
@@ -62,6 +60,7 @@ public class Tweet extends AppCompatActivity{
         String dateFormat = "EEE d MMM yyyy H:mm";
         return android.text.format.DateFormat.format(dateFormat, date).toString();
     }
+
 
     /**
      * Generate a long greater than zero

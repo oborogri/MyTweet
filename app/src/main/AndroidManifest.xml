@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.mytweet">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:name=".app.MyTweetApp"
@@ -32,13 +34,21 @@
         </activity>
         <activity
             android:name=".activities.TimelineListActivity"
-            android:label="@string/app_timeline"></activity>
+            android:label="@string/app_timeline">
+        </activity>
         <activity
             android:name=".activities.MyTweetPagerActivity"
             android:label="@string/app_mytweet">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="app.mytweet.activities.TimelineListActivity" />
+        </activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/action_settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.TimelineListActivity"/>
         </activity>
     </application>
 
