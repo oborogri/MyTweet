@@ -12,12 +12,6 @@
         android:inputType="textPassword"/>
 
     <EditTextPreference
-        android:key="nmr_tweets"
-        android:summary="@string/nmr_tweets_summary"
-        android:title="@string/nmr_tweets"
-        android:inputType="text"/>
-
-    <EditTextPreference
         android:key="refresh_interval"
         android:summary="@string/set_refresh_interval_summary"
         android:title="@string/set_refresh_interval"

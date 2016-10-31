@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -147,10 +148,20 @@ public class TweetFragment extends Fragment implements TextWatcher,
     {
         switch (v.getId()) {
             case R.id.contact_tweet:
-                selectContact(getActivity(), REQUEST_CONTACT);
+                //selectContact(getActivity(), REQUEST_CONTACT);
+                Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                startActivityForResult(i, REQUEST_CONTACT);
                 break;
 
             case R.id.email_tweet:
+                if(tweet.text.matches("")) {
+                    portfolio.deleteTweet(tweet);
+                    Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    navigateUp(getActivity());
+                    break;
+                }
+                if(emailAddress == null) emailAddress = ""; // guard against null pointer
                 sendEmail(getActivity(), emailAddress,
                         getString(R.string.email_tweet_subject), tweet.getText());
                 break;

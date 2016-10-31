@@ -9,13 +9,21 @@ import android.view.MenuItem;
 
 import app.mytweet.R;
 import app.mytweet.activities.WelcomeActivity;
+import app.mytweet.app.MyTweetApp;
+import app.mytweet.models.Portfolio;
+import app.mytweet.models.Tweet;
 
+import static app.mytweet.activities.TweetFragment.EXTRA_TWEET_ID;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 import static app.mytweet.helpers.LogHelpers.info;
 
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener
 {
     private SharedPreferences prefs;
+    private Tweet tweet;
+    private Portfolio portfolio;
+    MyTweetApp app;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState)  {

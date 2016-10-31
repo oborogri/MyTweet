@@ -113,6 +113,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
                 startActivityForResult(in, 0);
+                return true;
 
             case R.id.action_settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));

@@ -91,20 +91,5 @@ public class MyTweetPagerActivity extends AppCompatActivity
     }
 }
 
-   /* public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_container);
-
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);
-        if (fragment == null) {
-            fragment = new TweetFragment();
-            manager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
-        }
-    }*/
-
 
 
