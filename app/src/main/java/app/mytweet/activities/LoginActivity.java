@@ -40,18 +40,18 @@ public class LoginActivity extends AppCompatActivity {
         TextView email     = (TextView)  findViewById(R.id.loginEmail);
         TextView password  = (TextView)  findViewById(R.id.loginPassword);
 
-        /*if (app.validUser(email.getText().toString(), password.getText().toString()))
+        if (app.validUser(email.getText().toString(), password.getText().toString()))
         {
             Toast toast = Toast.makeText(this, "Welcome to MyTweet", Toast.LENGTH_SHORT);
-            toast.show();*/
+            toast.show();
 
             startActivity (new Intent(this, TimelineListActivity.class));
-        /*}
+        }
         else
         {
             startActivity (new Intent(this, LoginActivity.class));
             Toast toast = Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT);
             toast.show();
-        }*/
+        }
     }
 }

@@ -33,15 +33,15 @@
     <string name="dialog_text">Delete all tweets?</string>
     <string name="dialog_ok">Delete</string>
     <string name="dialog_cancel">Cancel</string>
-    <string name="username_summary">Please enter your user name</string>
-    <string name="username">Username</string>
-    <string name="password_summary">You may set your password here</string>
+    <string name="username_summary">What\'s your username?</string>
+    <string name="username">Username?</string>
+    <string name="password_summary">How do you login?</string>
     <string name="password">Password</string>
     <string name="nmr_tweets">Configure Downloads</string>
     <string name="nmr_tweets_summary">How many Tweets to store locally?</string>
     <string name="set_refresh_interval">Refresh</string>
-    <string name="set_refresh_interval_summary">Frequency of cloud updates (minutes)</string>
+    <string name="set_refresh_interval_summary">How frequently should data refresh (minutes)</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="delete_tweet">Delete Tweet</string>
-    <string name="email_tweet_subject">Message sent from MyTweetApp:</string>
+    <string name="email_tweet_subject">My Latest Tweet!</string>
 </resources>

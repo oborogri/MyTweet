@@ -28,8 +28,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static app.mytweet.R.id.chars_count;
-import static app.mytweet.R.id.text_tweet;
 import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 import static app.mytweet.helpers.IntentHelper.selectContact;
@@ -101,6 +99,10 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
         dateView .setText(tweet.getDateString());
 
+        if(tweet.text != null) {
+            textTweet.setEnabled(false);
+            sendTweet.setEnabled(false);
+        }
 
     }
 
@@ -115,6 +117,9 @@ public class TweetFragment extends Fragment implements TextWatcher,
         switch (item.getItemId())
         {
             case android.R.id.home:
+                if(tweet.text.matches("")) {
+                    portfolio.deleteTweet(tweet);
+                }
                 navigateUp(getActivity());
                 return true;
 
@@ -156,12 +161,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
                     Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
                     toast.show();
                     navigateUp(getActivity());
-                } else if (portfolio.containsTweet(tweet)) {
-                    Toast toast = Toast.makeText(getActivity(), "Message already on your Timeline!", Toast.LENGTH_SHORT);
-                    toast.show();
                 } else {
-                    portfolio.addTweet(tweet);
-                    portfolio.saveTweets();
                     Toast toast = Toast.makeText(getActivity(), "Message sent!", Toast.LENGTH_SHORT);
                     toast.show();
                     navigateUp(getActivity());

@@ -14,8 +14,8 @@ public class Portfolio
     private PortfolioSerializer   serializer;
 
     public Portfolio() {
-        tweets = new ArrayList<Tweet>();
-        this.generateTestData();
+       tweets = new ArrayList<Tweet>();
+       //this.generateTestData();
     }
 
     public void addTweet(Tweet tweet) {
@@ -64,11 +64,11 @@ public class Portfolio
         tweets.clear();
     }
 
-    private void generateTestData() {
+    /*private void generateTestData() {
         for (int i = 0; i < 10; i += 1) {
             Tweet t = new Tweet();
             t.text = "Tweet: " + i;
             tweets.add(t);
         }
-    }
+    }*/
 }
