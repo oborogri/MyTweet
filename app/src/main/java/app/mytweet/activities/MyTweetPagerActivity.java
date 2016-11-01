@@ -7,7 +7,6 @@ import app.mytweet.models.Tweet;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 

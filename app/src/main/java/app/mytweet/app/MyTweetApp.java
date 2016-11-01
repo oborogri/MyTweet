@@ -16,6 +16,7 @@ public class MyTweetApp extends Application
     protected static MyTweetApp app;
 
     public List<User> users        = new ArrayList<User>();
+    public List<User> currentUsers = new ArrayList<User>();
 
     @Override
     public void onCreate()

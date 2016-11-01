@@ -12,7 +12,7 @@
     tools:context=".activities.WelcomeActivity">
 
     <TextView
-        android:text="Welcome to MyTweet"
+        android:text="@string/welcome_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -22,7 +22,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display2" />
 
     <TextView
-        android:text="See what's happening in the great WIT world riht now "
+        android:text="@string/welcome_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/welcome_title"

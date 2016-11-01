@@ -9,8 +9,6 @@ import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
 import app.mytweet.settings.SettingsActivity;
 
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -31,7 +29,7 @@ import android.widget.AbsListView;
 import android.view.ActionMode;
 import android.widget.Toast;
 
-import static app.mytweet.R.id.text_tweet;
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
 {
@@ -93,6 +91,8 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 Tweet tweet = new Tweet();
                 portfolio.addTweet(tweet);
                 portfolio.saveTweets();
+                Toast toast = Toast.makeText(getActivity(), "Create new message!", Toast.LENGTH_SHORT);
+                toast.show();
                 Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
                 startActivityForResult(i, 0);
@@ -101,18 +101,25 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_clear:
                 tweets = portfolio.tweets;
                 if(tweets.size() == 0 ) {
-                    Toast toast = Toast.makeText(getActivity(), "There are no tweets to delete!", Toast.LENGTH_SHORT);
-                    toast.show();
+                    Toast t = Toast.makeText(getActivity(), "There are no messages to delete!", Toast.LENGTH_SHORT);
+                    t.show();
                     return true;
                 }
                 portfolio.deleteTweetsAll(tweets);
+                Toast to = Toast.makeText(getActivity(), "All messages deleted!", Toast.LENGTH_SHORT);
+                to.show();
                 Intent it = new Intent(getActivity(), TimelineListActivity.class);
                 startActivity(it);
                 return true;
 
             case R.id.menu_logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
+                //clearing all activities
+                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Toast t = Toast.makeText(getActivity(), "Logged out!", Toast.LENGTH_SHORT);
+                t.show();
                 startActivityForResult(in, 0);
+
                 return true;
 
             case R.id.action_settings:
@@ -182,6 +189,8 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         {
             case R.id.menu_item_delete_tweet:
                 deleteTweet(actionMode);
+                Toast toast = Toast.makeText(getActivity(), "Message deleted!", Toast.LENGTH_SHORT);
+                toast.show();
                 return true;
             default:
                 return false;

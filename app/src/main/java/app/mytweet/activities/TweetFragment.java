@@ -31,7 +31,6 @@ import android.widget.Toast;
 
 import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
-import static app.mytweet.helpers.IntentHelper.selectContact;
 
 
 public class TweetFragment extends Fragment implements TextWatcher,
@@ -118,6 +117,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
         switch (item.getItemId())
         {
             case android.R.id.home:
+                //delete empty tweets
                 if(tweet.text.matches("")) {
                     portfolio.deleteTweet(tweet);
                 }
@@ -155,6 +155,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
             case R.id.email_tweet:
                 if(tweet.text.matches("")) {
+                    //delete empty tweets and abort email
                     portfolio.deleteTweet(tweet);
                     Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
                     toast.show();
@@ -168,6 +169,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
             case R.id.send_tweet:
                 if (tweet.text.matches("")) {
+                    //delete empty tweet and return to timeline
                     portfolio.deleteTweet(tweet);
                     Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
                     toast.show();

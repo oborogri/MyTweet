@@ -2,6 +2,8 @@
     <string name="app_name">MyTweet</string>
     <string name="app_login">Login</string>
     <string name="app_signup">Signup</string>
+    <string name="welcome_title">Welcome to MyTweet</string>
+    <string name="welcome_message">See what\'s happening in the great WIT world right now</string>
     <string name="app_timeline">Timeline</string>
     <string name="login">LOGIN</string>
     <string name="signup">SIGNUP</string>

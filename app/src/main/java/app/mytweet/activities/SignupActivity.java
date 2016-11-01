@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import app.mytweet.R;
@@ -61,6 +60,11 @@ public class SignupActivity extends AppCompatActivity {
             }
         }
 
+    /**
+     * Helper method to check valid email pattern
+     * @param email
+     * @return
+     */
         private boolean isValidEmaillId(String email){
 
             return Pattern.compile("^(([\\w-]+\\.)+[\\w-]+|([a-zA-Z]{1}|[\\w-]{2,}))@"
