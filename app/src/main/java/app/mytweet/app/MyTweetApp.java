@@ -1,6 +1,7 @@
 package app.mytweet.app;
 
 import app.mytweet.models.Portfolio;
+import app.mytweet.models.PortfolioSerializer;
 import app.mytweet.models.User;
 
 import android.app.Application;
@@ -12,6 +13,7 @@ import static app.mytweet.helpers.LogHelpers.info;
 
 public class MyTweetApp extends Application
 {
+    private static final String FILENAME = "portfolio.json";
     public Portfolio portfolio;
     protected static MyTweetApp app;
 
@@ -22,7 +24,8 @@ public class MyTweetApp extends Application
     public void onCreate()
     {
         super.onCreate();
-        portfolio = new Portfolio();
+        PortfolioSerializer serializer = new PortfolioSerializer(this, FILENAME);
+        portfolio = new Portfolio(serializer);
 
         app=this;
 

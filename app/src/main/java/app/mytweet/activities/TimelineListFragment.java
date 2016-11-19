@@ -6,6 +6,7 @@ import app.mytweet.app.MyTweetApp;
 import app.mytweet.helpers.IntentHelper;
 import app.mytweet.R;
 import app.mytweet.models.Portfolio;
+import app.mytweet.models.PortfolioSerializer;
 import app.mytweet.models.Tweet;
 import app.mytweet.settings.SettingsActivity;
 
@@ -38,7 +39,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     private MyTweetAdapter adapter;
     private ListView listView;
     MyTweetApp app;
-
+    private static final String FILENAME = "this.portfolio";
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,9 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         getActivity().setTitle(R.string.app_name);
 
         app = MyTweetApp.getApp();
+        portfolio = app.portfolio;
+        tweets = portfolio.tweets;
+
         portfolio = app.portfolio;
         tweets = portfolio.tweets;
 

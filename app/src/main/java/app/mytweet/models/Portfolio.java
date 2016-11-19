@@ -13,8 +13,18 @@ public class Portfolio
     public ArrayList<Tweet> tweets;
     private PortfolioSerializer   serializer;
 
-    public Portfolio() {
-       tweets = new ArrayList<Tweet>();
+    public Portfolio(PortfolioSerializer serializer)
+    {
+        this.serializer = serializer;
+        try
+        {
+            tweets = serializer.loadTweets();
+        }
+        catch (Exception e)
+        {
+            info(this, "Error loading tweets: " + e.getMessage());
+            tweets = new ArrayList<Tweet>();
+        }
     }
 
     public void addTweet(Tweet tweet) {
