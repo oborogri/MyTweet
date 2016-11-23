@@ -33,10 +33,10 @@ import static app.mytweet.helpers.ContactHelper.sendEmail;
 import static app.mytweet.helpers.IntentHelper.navigateUp;
 
 
-public class TweetFragment extends Fragment implements TextWatcher,
+public class NewTweetFragment extends Fragment implements TextWatcher,
         OnClickListener
 {
-    public static   final String  EXTRA_TWEET_ID = "mytweet.TWEET_ID";
+    public static   final String  EXTRA_TWEET_ID = "newtweet.TWEET_ID";
 
     private static  final int     REQUEST_CONTACT = 1;
 
@@ -60,7 +60,7 @@ public class TweetFragment extends Fragment implements TextWatcher,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Long tweetId = (Long)getArguments().getSerializable(EXTRA_TWEET_ID);
+        Long tweetId = (Long)getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
 
         app = MyTweetApp.getApp();
         portfolio = app.portfolio;
@@ -74,8 +74,8 @@ public class TweetFragment extends Fragment implements TextWatcher,
         super.onCreateView(inflater,  parent, savedInstanceState);
         View v = inflater.inflate(R.layout.fragment_mytweet, parent, false);
 
-        MyTweetPagerActivity mytweetActivity = (MyTweetPagerActivity)getActivity();
-        mytweetActivity.actionBar.setDisplayHomeAsUpEnabled(true);
+        NewTweetActivity newTweetActivity = (NewTweetActivity)getActivity();
+        newTweetActivity.actionBar.setDisplayHomeAsUpEnabled(true);
 
         addListeners(v);
         updateControls(tweet);
@@ -98,14 +98,12 @@ public class TweetFragment extends Fragment implements TextWatcher,
         emailTweet  .setOnClickListener(this);
 
         dateView .setText(tweet.getDateString());
-        textTweet.setEnabled(false);
-        sendTweet.setEnabled(false);
+
     }
 
     public void updateControls(Tweet tweet)
     {
         textTweet.setText(tweet.text);
-        count    .setText("");
     }
 
     @Override
@@ -114,10 +112,8 @@ public class TweetFragment extends Fragment implements TextWatcher,
         switch (item.getItemId())
         {
             case android.R.id.home:
-                //delete empty tweets
-                if(tweet.text.matches("")) {
-                    portfolio.deleteTweet(tweet);
-                }
+                //delete tweet and return to timeline
+                portfolio.deleteTweet(tweet);
                 navigateUp(getActivity());
                 return true;
 

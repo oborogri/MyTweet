@@ -21,6 +21,7 @@ public class Tweet extends AppCompatActivity{
 
     public static final String JSON_ID = "id";
     public static final String JSON_DATE = "date";
+    public static final String JSON_CONTENT = "text";
     public static final String JSON_RECEIVER = "receiver";
 
     public Tweet() {
@@ -28,12 +29,14 @@ public class Tweet extends AppCompatActivity{
         id = unsignedLong();
         date = new Date().getTime();
         receiver = "";
+        text = "";
     }
 
     public Tweet(JSONObject json) throws JSONException {
         id = json.getLong(JSON_ID);
         date = json.getLong(JSON_DATE);
         receiver = json.getString(JSON_RECEIVER);
+        text = json.getString(JSON_CONTENT);
     }
 
     public JSONObject toJSON() throws JSONException {
@@ -41,6 +44,7 @@ public class Tweet extends AppCompatActivity{
         json.put(JSON_ID, Long.toString(id));
         json.put(JSON_DATE, date);
         json.put(JSON_RECEIVER, receiver);
+        json.put(JSON_CONTENT, text);
         return json;
     }
 

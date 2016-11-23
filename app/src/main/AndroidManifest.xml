@@ -44,6 +44,13 @@
                 android:value="app.mytweet.activities.TimelineListActivity" />
         </activity>
         <activity
+            android:name=".activities.NewTweetActivity"
+            android:label="@string/app_mytweet">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="app.mytweet.activities.TimelineListActivity" />
+        </activity>
+        <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/action_settings" >
             <meta-data

@@ -97,9 +97,9 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 portfolio.saveTweets();
                 Toast toast = Toast.makeText(getActivity(), "Create new message!", Toast.LENGTH_SHORT);
                 toast.show();
-                Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
-                i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
-                startActivityForResult(i, 0);
+                Intent i = new Intent(getActivity(), NewTweetActivity.class);
+                i.putExtra(NewTweetFragment.EXTRA_TWEET_ID, tweet.id);
+                this.startActivityForResult(i, 0);
                 return true;
 
             case R.id.menu_clear:

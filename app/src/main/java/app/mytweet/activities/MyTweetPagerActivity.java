@@ -80,9 +80,9 @@ public class MyTweetPagerActivity extends AppCompatActivity
         @Override
         public Fragment getItem(int pos)
         {
-            Tweet residence = tweets.get(pos);
+            Tweet tweet = tweets.get(pos);
             Bundle args = new Bundle();
-            args.putSerializable(TweetFragment.EXTRA_TWEET_ID, residence.id);
+            args.putSerializable(TweetFragment.EXTRA_TWEET_ID, tweet.id);
             TweetFragment fragment = new TweetFragment();
             fragment.setArguments(args);
             return fragment;
