@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import app.mytweet.R;
 import app.mytweet.activities.WelcomeActivity;
@@ -59,6 +60,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
             case R.id.menu_logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
+                //clearing all activities
+                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Toast t = Toast.makeText(getActivity(), "Logged out!", Toast.LENGTH_SHORT);
+                t.show();
                 startActivityForResult(in, 0);
 
             default:
@@ -68,9 +73,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
     @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+    public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
 
-        info(getActivity(), "Settings change - key : value = " + key + " : " + sharedPreferences.getString(key, ""));
+        info(getActivity(), "Settings change - key : value = " + key + " : " + prefs.getString(key, ""));
 
     }
 }
