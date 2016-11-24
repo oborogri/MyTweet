@@ -137,6 +137,12 @@ public class NewTweetFragment extends Fragment implements TextWatcher,
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        portfolio.updateTweet(tweet);
+    }
+
+    @Override
     public void onClick(View v)
     {
         switch (v.getId()) {
@@ -164,12 +170,10 @@ public class NewTweetFragment extends Fragment implements TextWatcher,
                 if (tweet.text.matches("")) {
                     //delete empty tweet and return to timeline
                     portfolio.deleteTweet(tweet);
-                    portfolio.saveTweets();
                     Toast toast = Toast.makeText(getActivity(), "Message body can't be blanc!", Toast.LENGTH_SHORT);
                     toast.show();
                     navigateUp(getActivity());
                 } else {
-                    portfolio.saveTweets();
                     Toast toast = Toast.makeText(getActivity(), "Message sent!", Toast.LENGTH_SHORT);
                     toast.show();
                     navigateUp(getActivity());

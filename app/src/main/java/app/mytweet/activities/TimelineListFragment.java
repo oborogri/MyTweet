@@ -94,7 +94,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
                 portfolio.addTweet(tweet);
-                portfolio.saveTweets();
+
                 Toast toast = Toast.makeText(getActivity(), "Create new message!", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent i = new Intent(getActivity(), NewTweetActivity.class);
