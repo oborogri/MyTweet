@@ -12,38 +12,38 @@ import android.widget.TextView;
 
 public class Tweet extends AppCompatActivity{
 
-    public Long id;
-    public Long date;
-    public int max_count = 140;
+    public String id;
+    public String date;
+    public  int max_count;
 
-    public String receiver;
+    public String sender;
     public String text;
 
     public static final String JSON_ID = "id";
     public static final String JSON_DATE = "date";
     public static final String JSON_CONTENT = "text";
-    public static final String JSON_RECEIVER = "receiver";
+    public static final String JSON_SENDER = "sender";
 
     public Tweet() {
 
-        id = unsignedLong();
-        date = new Date().getTime();
-        receiver = "";
+        id = getId();
+        date = getDateString();
+        sender = "";
         text = "";
     }
 
     public Tweet(JSONObject json) throws JSONException {
-        id = json.getLong(JSON_ID);
-        date = json.getLong(JSON_DATE);
-        receiver = json.getString(JSON_RECEIVER);
+        id = json.getString(JSON_ID);
+        date = json.getString(JSON_DATE);
+        sender = json.getString(JSON_SENDER);
         text = json.getString(JSON_CONTENT);
     }
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(JSON_ID, Long.toString(id));
+        json.put(JSON_ID, id);
         json.put(JSON_DATE, date);
-        json.put(JSON_RECEIVER, receiver);
+        json.put(JSON_SENDER, sender);
         json.put(JSON_CONTENT, text);
         return json;
     }
@@ -61,21 +61,22 @@ public class Tweet extends AppCompatActivity{
     }
 
     private String dateString() {
+        Long now  = new Date().getTime();
         String dateFormat = "EEE d MMM yyyy H:mm";
-        return android.text.format.DateFormat.format(dateFormat, date).toString();
+        return android.text.format.DateFormat.format(dateFormat, now).toString();
     }
 
 
-    /**
+    /**+
      * Generate a long greater than zero
      * @return Unsigned Long value grater than zero
      */
-    private Long unsignedLong() {
+  private String getId() {
         long rndVal = 0;
         do {
             rndVal = new Random().nextLong();
         } while (rndVal <=0);
-        return rndVal;
+        return Long.toString(rndVal);
     }
 
 }

@@ -11,9 +11,7 @@ import android.util.Log;
 import app.mytweet.models.Tweet;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public class DbHelper extends SQLiteOpenHelper
 {
@@ -24,13 +22,13 @@ public class DbHelper extends SQLiteOpenHelper
 
     static final String PRIMARY_KEY = "id";
     static final String DATE = "date";
-    static final String RECEIVER = "receiver";
+    static final String SENDER = "sender";
     static final String TEXT = "text";
 
     Context context;
 
     public DbHelper(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, "/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
     @Override
@@ -39,7 +37,7 @@ public class DbHelper extends SQLiteOpenHelper
                 "CREATE TABLE tableTweets " +
                         "(id text primary key, " +
                         "date text," +
-                        "receiver text," +
+                        "sender text," +
                         "text text)";
 
         db.execSQL(createTable);
@@ -54,7 +52,7 @@ public class DbHelper extends SQLiteOpenHelper
         ContentValues values = new ContentValues();
         values.put(PRIMARY_KEY, tweet.id);
         values.put(DATE, tweet.date);
-        values.put(RECEIVER, tweet.receiver);
+        values.put(SENDER, tweet.sender);
         values.put(TEXT, tweet.text);
 
         // Insert record
@@ -72,7 +70,7 @@ public class DbHelper extends SQLiteOpenHelper
             addTweet(tweet);
         }
     }
-    public Tweet selectTweet(UUID tweetId) {
+    public Tweet selectTweet(String tweetId) {
         Tweet tweet;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = null;
@@ -80,14 +78,14 @@ public class DbHelper extends SQLiteOpenHelper
         try {
             tweet = new Tweet();
 
-            cursor = db.rawQuery("SELECT * FROM tableTweets WHERE uuid = ?", new String[]{tweetId.toString() + ""});
+            cursor = db.rawQuery("SELECT * FROM tableTweets WHERE id = ?", new String[]{tweetId + ""});
 
             if (cursor.getCount() > 0) {
                 int columnIndex = 0;
                 cursor.moveToFirst();
-                tweet.id = cursor.getLong(columnIndex++);
-                tweet.date = Long.parseLong(cursor.getString(columnIndex++));
-                tweet.receiver = cursor.getString(columnIndex++);
+                tweet.id = cursor.getString(columnIndex++);
+                tweet.date = cursor.getString(columnIndex++);
+                tweet.sender = cursor.getString(columnIndex++);
                 tweet.text = cursor.getString(columnIndex++);
             }
         }
@@ -120,9 +118,9 @@ public class DbHelper extends SQLiteOpenHelper
             int columnIndex = 0;
             do {
                 Tweet tweet = new Tweet();
-                tweet.id = cursor.getLong(columnIndex++);
-                tweet.date = Long.parseLong(cursor.getString(columnIndex++));
-                tweet.receiver = cursor.getString(columnIndex++);
+                tweet.id = cursor.getString(columnIndex++);
+                tweet.date = cursor.getString(columnIndex++);
+                tweet.sender = cursor.getString(columnIndex++);
                 tweet.text = cursor.getString(columnIndex++);
                 columnIndex = 0;
 
@@ -168,7 +166,7 @@ public class DbHelper extends SQLiteOpenHelper
         try {
             ContentValues values = new ContentValues();
             values.put(DATE, tweet.date);
-            values.put(RECEIVER, tweet.receiver);
+            values.put(SENDER, tweet.sender);
             values.put(TEXT, tweet.text);
 
             db.update("tableTweets", values, "id" + "=?", new String[]{tweet.id + ""});

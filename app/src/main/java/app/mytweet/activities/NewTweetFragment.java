@@ -60,7 +60,7 @@ public class NewTweetFragment extends Fragment implements TextWatcher,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Long tweetId = (Long)getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
+        String tweetId = String.valueOf(getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID));
 
         app = MyTweetApp.getApp();
         portfolio = app.portfolio;
@@ -194,7 +194,7 @@ public class NewTweetFragment extends Fragment implements TextWatcher,
                 String name = ContactHelper.getContact(getActivity(), data);
                 emailAddress = ContactHelper.getEmail(getActivity(), data);
                 contactTweet.setText(name + " : " + emailAddress);
-                tweet.receiver = name;
+                tweet.sender = name;
                 break;
         }
     }

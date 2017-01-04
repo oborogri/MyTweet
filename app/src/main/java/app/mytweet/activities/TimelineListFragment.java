@@ -6,7 +6,6 @@ import app.mytweet.app.MyTweetApp;
 import app.mytweet.helpers.IntentHelper;
 import app.mytweet.R;
 import app.mytweet.models.Portfolio;
-import app.mytweet.models.PortfolioSerializer;
 import app.mytweet.models.Tweet;
 import app.mytweet.settings.SettingsActivity;
 
@@ -29,8 +28,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.view.ActionMode;
 import android.widget.Toast;
-
-import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
 
 public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
 {
@@ -72,7 +69,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
 
         Tweet t = ((MyTweetAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
-        i.putExtra(TweetFragment.EXTRA_TWEET_ID, t.id);
+        i.putExtra(TweetFragment.EXTRA_TWEET_ID, Long.parseLong(t.id));
         startActivityForResult(i, 0);
     }
 
@@ -93,6 +90,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         switch (item.getItemId()) {
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
+                tweet.sender = "homer@simpson.com";
                 portfolio.addTweet(tweet);
 
                 Toast toast = Toast.makeText(getActivity(), "Create new message!", Toast.LENGTH_SHORT);

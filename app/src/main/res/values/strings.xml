@@ -23,6 +23,7 @@
     <string name="menuLogout">Logout</string>
     <string name="new_tweet">New Tweet</string>
     <string name="send_tweet">Tweet</string>
+    <string name="refresh">Refresh Tweet List</string>
     <string name="text_tweet"/>
     <string name="chars_tweet"/>
     <string name="email_via">Tweet via Email</string>

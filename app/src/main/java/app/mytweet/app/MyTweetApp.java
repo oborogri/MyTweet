@@ -1,7 +1,6 @@
 package app.mytweet.app;
 
 import app.mytweet.models.Portfolio;
-import app.mytweet.models.PortfolioSerializer;
 import app.mytweet.models.User;
 
 import android.app.Application;
@@ -10,11 +9,9 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
-import static app.mytweet.helpers.LogHelpers.info;
-
 public class MyTweetApp extends Application
 {
-    private static final String TAG = "MyTweetApp";
+    static final String TAG = "MyTweetApp";
     public Portfolio portfolio;
     protected static MyTweetApp app;
 
