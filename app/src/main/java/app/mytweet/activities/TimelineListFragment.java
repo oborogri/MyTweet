@@ -100,6 +100,10 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 this.startActivityForResult(i, 0);
                 return true;
 
+            case R.id.action_refresh:
+                retrieveTweets();
+                return true;
+
             case R.id.menu_clear:
                 tweets = portfolio.tweets;
                 if(tweets.size() == 0 ) {
@@ -133,6 +137,9 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         }
     }
 
+    public void retrieveTweets() {
+        Toast.makeText(getActivity(), "Retrieving residence list", Toast.LENGTH_SHORT).show();
+    }
 
 
     @Override
