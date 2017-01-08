@@ -8,6 +8,10 @@ import app.mytweet.R;
 import app.mytweet.models.Portfolio;
 import app.mytweet.models.Tweet;
 import app.mytweet.settings.SettingsActivity;
+import retrofit.Call;
+import retrofit.Callback;
+import retrofit.Response;
+import retrofit.Retrofit;
 
 import android.widget.ListView;
 import android.view.LayoutInflater;
@@ -29,7 +33,8 @@ import android.widget.AbsListView;
 import android.view.ActionMode;
 import android.widget.Toast;
 
-public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener
+public class TimelineListFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener,
+        Callback<Tweet>
 {
     private ArrayList<Tweet> tweets;
     private Portfolio portfolio;
@@ -44,9 +49,6 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         getActivity().setTitle(R.string.app_name);
 
         app = MyTweetApp.getApp();
-        portfolio = app.portfolio;
-        tweets = portfolio.tweets;
-
         portfolio = app.portfolio;
         tweets = portfolio.tweets;
 
@@ -69,7 +71,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
 
         Tweet t = ((MyTweetAdapter) getListAdapter()).getItem(position);
         Intent i = new Intent(getActivity(), MyTweetPagerActivity.class);
-        i.putExtra(TweetFragment.EXTRA_TWEET_ID, Long.parseLong(t.id));
+        i.putExtra(TweetFragment.EXTRA_TWEET_ID, t.id);
         startActivityForResult(i, 0);
     }
 
@@ -90,8 +92,11 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         switch (item.getItemId()) {
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
-                tweet.sender = "homer@simpson.com";
                 portfolio.addTweet(tweet);
+                tweet.sender="homer@simpson.com";//hrdcoded - to be changed to app.currentUser
+
+                //add tweet to the server
+                createTweet(tweet);
 
                 Toast toast = Toast.makeText(getActivity(), "Create new message!", Toast.LENGTH_SHORT);
                 toast.show();
@@ -136,45 +141,96 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    public void retrieveTweets() {
-        Toast.makeText(getActivity(), "Retrieving residence list", Toast.LENGTH_SHORT).show();
-    }
-
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Tweet t = adapter.getItem(position);
         IntentHelper.startActivityWithData(getActivity(), MyTweetPagerActivity.class, "TWEET_ID", t.id);
     }
 
-    class MyTweetAdapter extends ArrayAdapter<Tweet>
-    {
-        private Context context;
+/* ****************Retrofit create tweet start ************************************************************************/
 
-        public MyTweetAdapter(Context context, ArrayList<Tweet> tweets) {
-            super(context, 0, tweets);
-            this.context = context;
+    public void createTweet(Tweet tweet) {
+        Call<Tweet> call = app.tweetService.createTweet(tweet);
+        call.enqueue(this);
+    }
+
+    //interface methods implementation
+    @Override
+    public void onResponse(Response<Tweet> response, Retrofit retrofit) {
+
+        Tweet returnedTweet = response.body();
+        if (returnedTweet != null) {
+            Toast.makeText(getActivity(), "Tweet created successfully", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(getActivity(), "Tweet null object returned due to incorrectly configured client", Toast.LENGTH_SHORT).show();
+
         }
 
-        @SuppressLint("InflateParams")
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        Toast.makeText(getActivity(), "Failed to create tweet due to unknown network issue", Toast.LENGTH_SHORT).show();
+
+    }
+    /****************** Retrofit create tweet end **********************************************************************************/
+
+    /* ************ Retrofit: Delete Tweet start*************************************** */
+
+    public void deleteTweet(Long id) {
+        DeleteRemoteTweet delTweet = new DeleteRemoteTweet();
+        Call<String> call = app.tweetService.deleteTweet(id);
+        call.enqueue(delTweet);
+    }
+    class DeleteRemoteTweet implements Callback<String>
+    {
+
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.timelinelist_item, null);
-            }
-            Tweet t = getItem(position);
+        public void onResponse(Response<String> response, Retrofit retrofit) {
+            Toast.makeText(getActivity(), "Tweet deleted", Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }
 
-            TextView textTweet = (TextView) convertView.findViewById(R.id.timelinelist_item_text);
-            textTweet.setText(t.text);
-
-            TextView dateTextView = (TextView) convertView.findViewById(R.id.timelinelist_item_dateTextView);
-            dateTextView.setText(t.getDateString());
-
-            return convertView;
+        @Override
+        public void onFailure(Throwable t) {
+            Toast.makeText(getActivity(), "Failed to delete Tweet due to unknown network issue", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void retrieveTweets() {
+        Toast.makeText(getActivity(), "Retrieving tweet list", Toast.LENGTH_SHORT).show();
+    }
+
+/******************************Adapter class*****************************************************************/
+
+class MyTweetAdapter extends ArrayAdapter<Tweet>
+{
+    private Context context;
+
+    public MyTweetAdapter(Context context, ArrayList<Tweet> tweets) {
+        super(context, 0, tweets);
+        this.context = context;
+    }
+
+    @SuppressLint("InflateParams")
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (convertView == null) {
+            convertView = inflater.inflate(R.layout.timelinelist_item, null);
+        }
+        Tweet t = getItem(position);
+
+        TextView textTweet = (TextView) convertView.findViewById(R.id.timelinelist_item_text);
+        textTweet.setText(t.text);
+
+        TextView dateTextView = (TextView) convertView.findViewById(R.id.timelinelist_item_dateTextView);
+        dateTextView.setText(t.getDateString());
+
+        return convertView;
+    }
+}
 
     /* ************ MultiChoiceModeListener methods (begin) *********** */
     @Override
@@ -213,7 +269,8 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
         {
             if (listView.isItemChecked(i))
             {
-                portfolio.deleteTweet(adapter.getItem(i));
+                Tweet tweet = adapter.getItem(i);
+                portfolio.deleteTweet(tweet);
             }
         }
         actionMode.finish();

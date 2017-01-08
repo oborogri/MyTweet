@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 public class Tweet extends AppCompatActivity{
 
-    public String id;
-    public String date;
-    public  int max_count;
+    public Long id;
+    public Long date;
+    public int max_count = 140;
 
     public String sender;
     public String text;
@@ -26,22 +26,22 @@ public class Tweet extends AppCompatActivity{
 
     public Tweet() {
 
-        id = getId();
-        date = getDateString();
+        id = unsignedLong();
+        date = new Date().getTime();
         sender = "";
         text = "";
     }
 
     public Tweet(JSONObject json) throws JSONException {
-        id = json.getString(JSON_ID);
-        date = json.getString(JSON_DATE);
+        id = json.getLong(JSON_ID);
+        date = json.getLong(JSON_DATE);
         sender = json.getString(JSON_SENDER);
         text = json.getString(JSON_CONTENT);
     }
 
     public JSONObject toJSON() throws JSONException {
         JSONObject json = new JSONObject();
-        json.put(JSON_ID, id);
+        json.put(JSON_ID, Long.toString(id));
         json.put(JSON_DATE, date);
         json.put(JSON_SENDER, sender);
         json.put(JSON_CONTENT, text);
@@ -61,22 +61,21 @@ public class Tweet extends AppCompatActivity{
     }
 
     private String dateString() {
-        Long now  = new Date().getTime();
         String dateFormat = "EEE d MMM yyyy H:mm";
-        return android.text.format.DateFormat.format(dateFormat, now).toString();
+        return android.text.format.DateFormat.format(dateFormat, date).toString();
     }
 
 
-    /**+
+    /**
      * Generate a long greater than zero
      * @return Unsigned Long value grater than zero
      */
-  private String getId() {
+    private Long unsignedLong() {
         long rndVal = 0;
         do {
             rndVal = new Random().nextLong();
         } while (rndVal <=0);
-        return Long.toString(rndVal);
+        return rndVal;
     }
 
 }

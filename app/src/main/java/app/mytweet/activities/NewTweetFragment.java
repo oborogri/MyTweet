@@ -60,7 +60,7 @@ public class NewTweetFragment extends Fragment implements TextWatcher,
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        String tweetId = String.valueOf(getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID));
+        Long tweetId = (Long)getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
 
         app = MyTweetApp.getApp();
         portfolio = app.portfolio;

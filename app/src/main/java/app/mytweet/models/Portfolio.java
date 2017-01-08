@@ -56,7 +56,7 @@ public class Portfolio
      * @param id The Long id identifier of the tweet sought.
      * @return The specified tweet if it exists.
      */
-    public Tweet getTweet(String id) {
+    public Tweet getTweet(Long id) {
         Log.i(this.getClass().getSimpleName(), "String id id: " + id);
 
         for (Tweet t : tweets) {

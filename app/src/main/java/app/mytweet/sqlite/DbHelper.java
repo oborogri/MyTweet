@@ -6,18 +6,20 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 import app.mytweet.models.Tweet;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper
 {
     static final String TAG = "DbHelper";
-    static final String DATABASE_NAME = "tweets.db";
-    static final int DATABASE_VERSION = 1;
+    static final String DATABASE_NAME = "my-tweet.db";
+    static final int    DATABASE_VERSION = 1;
     static final String TABLE_TWEETS = "tableTweets";
 
     static final String PRIMARY_KEY = "id";
@@ -28,7 +30,8 @@ public class DbHelper extends SQLiteOpenHelper
     Context context;
 
     public DbHelper(Context context) {
-        super(context, "/sdcard/" + DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, "/sdcard/" //saving sql db to device external storage
+                + DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
     }
     @Override
@@ -83,8 +86,8 @@ public class DbHelper extends SQLiteOpenHelper
             if (cursor.getCount() > 0) {
                 int columnIndex = 0;
                 cursor.moveToFirst();
-                tweet.id = cursor.getString(columnIndex++);
-                tweet.date = cursor.getString(columnIndex++);
+                tweet.id = cursor.getLong(columnIndex++);
+                tweet.date = Long.parseLong(cursor.getString(columnIndex++));
                 tweet.sender = cursor.getString(columnIndex++);
                 tweet.text = cursor.getString(columnIndex++);
             }
@@ -118,8 +121,8 @@ public class DbHelper extends SQLiteOpenHelper
             int columnIndex = 0;
             do {
                 Tweet tweet = new Tweet();
-                tweet.id = cursor.getString(columnIndex++);
-                tweet.date = cursor.getString(columnIndex++);
+                tweet.id = cursor.getLong(columnIndex++);
+                tweet.date = Long.parseLong(cursor.getString(columnIndex++));
                 tweet.sender = cursor.getString(columnIndex++);
                 tweet.text = cursor.getString(columnIndex++);
                 columnIndex = 0;

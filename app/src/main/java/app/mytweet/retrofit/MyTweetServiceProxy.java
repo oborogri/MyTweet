@@ -19,7 +19,7 @@ public interface MyTweetServiceProxy
     Call<Tweet> createTweet(@Body Tweet tweet);
 
     @DELETE("/api/tweets/{id}")
-    Call<String> deleteTweet(@Path("id") String id);
+    Call<String> deleteTweet(@Path("id") Long id);
 
     @GET("/api/tweets")
     Call<List<Tweet>> getResidences();
