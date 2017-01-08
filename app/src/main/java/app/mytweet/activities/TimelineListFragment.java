@@ -271,6 +271,7 @@ class MyTweetAdapter extends ArrayAdapter<Tweet>
             {
                 Tweet tweet = adapter.getItem(i);
                 portfolio.deleteTweet(tweet);
+                deleteTweet(tweet.id);
             }
         }
         actionMode.finish();
