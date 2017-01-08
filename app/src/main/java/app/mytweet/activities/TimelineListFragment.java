@@ -1,6 +1,7 @@
 package app.mytweet.activities;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.mytweet.app.MyTweetApp;
 import app.mytweet.helpers.IntentHelper;
@@ -93,7 +94,7 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
                 portfolio.addTweet(tweet);
-                tweet.sender="homer@simpson.com";//hrdcoded - to be changed to app.currentUser
+                tweet.sender="homer@simpson.com";//hardcoded - to be changed to app.currentUser
 
                 //add tweet to the server
                 createTweet(tweet);
@@ -199,8 +200,28 @@ public class TimelineListFragment extends ListFragment implements OnItemClickLis
     }
 
     public void retrieveTweets() {
+        RetrieveTweets retrieveTweets = new RetrieveTweets();
+        Call<List<Tweet>> call = app.tweetService.getTweets();
+        call.enqueue(retrieveTweets);
         Toast.makeText(getActivity(), "Retrieving tweet list", Toast.LENGTH_SHORT).show();
     }
+/************ Retrieve tweets call back implementation*************************************************/
+
+class RetrieveTweets implements Callback<List<Tweet>>
+{
+    @Override
+    public void onResponse(Response<List<Tweet>> response, Retrofit retrofit) {
+        List<Tweet> listTweet = response.body();
+        Toast.makeText(getActivity(), "Retrieved " + listTweet.size() + " tweets", Toast.LENGTH_SHORT).show();
+        portfolio.refreshTweets(listTweet);
+        ((MyTweetAdapter) getListAdapter()).notifyDataSetChanged();
+    }
+
+    @Override
+    public void onFailure(Throwable t) {
+        Toast.makeText(getActivity(), "Failed to retrieve tweet list", Toast.LENGTH_SHORT).show();
+    }
+}
 
 /******************************Adapter class*****************************************************************/
 

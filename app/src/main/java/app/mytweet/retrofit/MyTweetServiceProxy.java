@@ -22,6 +22,6 @@ public interface MyTweetServiceProxy
     Call<String> deleteTweet(@Path("id") Long id);
 
     @GET("/api/tweets")
-    Call<List<Tweet>> getResidences();
+    Call<List<Tweet>> getTweets();
 
 }
