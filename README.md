@@ -12,7 +12,8 @@ The repo source tree comprises two main branches: master and dev, and several br
 The final changes are merged into dev and master and tagged as releases V-01 to v-06
 ## Development
 This project comprizes two major development stages: stage one: from v-01 to v-03 and all commits prior to November 1, 2016; 
-<br>stage two: from v_03 to v-06 final and commits from November 1, 2016 to January 8, 2017. 
+stage two: from v_03 to v-06 final and commits from November 1, 2016 to January 8, 2017. 
+
 The scope of the project is to build the app in several iterations and consume a public API from MyTweet webserver. 
 
 Link to MyTweet Hapi.js app on github: https://github.com/oborogri/MyTweet-node
