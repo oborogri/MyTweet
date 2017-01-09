@@ -6,7 +6,8 @@ A microblog/twitter like application, built and developed using Android Studio 2
 ## License
 Author and owner: Grigore Oboroceanu
 ## Installation
-Download or clone project in GitHUb and import apk to Android Studio
+Download or clone project in GitHUb and import apk to Android Studio.
+For testing the app connect to a physical device with external memory storage. Data is persisted on external memory card. 
 ##Source tree
 The repo source tree comprises two main branches: master and dev, and several branches for each of the app main features. 
 The final changes are merged into dev and master and tagged as releases V-01 to v-06
@@ -16,7 +17,7 @@ stage two: from v_03 to v-06 final and commits from November 1, 2016 to January 
 
 The scope of the project is to build the app in several iterations and consume a public API from MyTweet webserver. 
 
-Link to MyTweet Hapi.js app on github: https://github.com/oborogri/MyTweet-node
+Link to MyTweet Hapi.js web server app on github: https://github.com/oborogri/MyTweet-node
 
 ## Features 
 The application allows a user to create and publish on its timeline a 140-character short message. 
