@@ -29,8 +29,5 @@ created or deleted are being updated and kept in sync with the server database.
 
 ## Deployment
 The application web server is deployed on Heroku and to AWS Linux AMI and the database is hosted on a separate MongoDB instance on AWS.<br>  
-The app on Amazon:              http:// 35.160.159.30:4000 <br>
-The app on Heroku:              https://my-tweet20073381.herokuapp.com/ <br>
-The Aurelia SPA on githubpages: https://oborogri.github.io/mytweet-aurelia-ghpages/<br>
-</content>
-</snippet>
+The web server app on Amazon:              http:// 35.160.159.30:4000 <br>
+The web server app on Heroku:              https://my-tweet20073381.herokuapp.com/ <br>
