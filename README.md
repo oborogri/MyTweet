@@ -30,5 +30,5 @@ created or deleted are being updated and kept in sync with the server database.
 
 ## Deployment
 The application web server is deployed on Heroku and to AWS Linux AMI and the database is hosted on a separate MongoDB instance on AWS.<br>  
-The web server app on Amazon:              http://52.11.78.175:4000 :4000 <br>
+The web server app on Amazon:              http://52.11.78.175:4000<br>
 The web server app on Heroku:              https://my-tweet20073381.herokuapp.com/ <br>
